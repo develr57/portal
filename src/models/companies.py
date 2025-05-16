@@ -1,7 +1,10 @@
-from base import Base, bigint_pk, created_at, updated_at
+from src.models.base import Base, bigint_pk, created_at, updated_at
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import String
-from src.models.departments import Departments
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from src.models.departments import Departments
 
 
 class Companies(Base):

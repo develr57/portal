@@ -3,7 +3,7 @@ from pydantic import BaseModel
 from sqlalchemy import BigInteger
 
 
-class CompaniesSchema(BaseModel):
+class CompanySchema(BaseModel):
     id: BigInteger
     name: str
     full_name: str
@@ -14,5 +14,12 @@ class CompaniesSchema(BaseModel):
         from_attributes = True
 
 
-class CompaniesEditSchema(BaseModel):
+class CompanySchemaAdd(BaseModel):
+    name: str
+    full_name: str
+
+
+class CompanySchemaEdit(BaseModel):
+    name: str
+    full_name: str
     updated_at: datetime.datetime.now(datetime.UTC)

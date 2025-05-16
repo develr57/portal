@@ -62,7 +62,7 @@ class Settings(BaseSettings):
         else:
             return f"sqlite:///{self.DB_NAME}"
 
-    model_config = SettingsConfigDict(env_file=".env")
+    model_config = SettingsConfigDict(env_file="./src/.env")
     api: ApiPrefix = ApiPrefix()
     naming_convention: dict[str, str] = {
         "ix": "ix_%(column_0_label)s",
