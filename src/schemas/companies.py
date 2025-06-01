@@ -1,25 +1,23 @@
-import datetime
-from pydantic import BaseModel
-from sqlalchemy import BigInteger
+from _datetime import datetime
+from pydantic import BaseModel, ConfigDict
 
 
-class CompanySchema(BaseModel):
-    id: BigInteger
+class CompanySchemaBase(BaseModel):
+    id: int
     name: str
     full_name: str
-    created_at: datetime.datetime.now(datetime.UTC)
-    updated_at: datetime.datetime.now(datetime.UTC)
+    created_at: datetime
+    updated_at: datetime
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 
-class CompanySchemaAdd(BaseModel):
+class CompanySchemaAdd(CompanySchemaBase):
     name: str
     full_name: str
 
 
-class CompanySchemaEdit(BaseModel):
+class CompanySchemaEdit(CompanySchemaBase):
     name: str
     full_name: str
-    updated_at: datetime.datetime.now(datetime.UTC)
+    updated_at: datetime

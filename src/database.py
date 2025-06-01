@@ -23,5 +23,5 @@ session_factory = sessionmaker(sync_engine)
 async_session_factory = async_sessionmaker(async_engine, class_=AsyncSession)
 
 async def get_async_session() -> AsyncGenerator[AsyncSession, None]:
-    async with async_sessionmaker() as session:
+    async with async_session_factory() as session:
         yield session

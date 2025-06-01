@@ -52,7 +52,7 @@ class Settings(BaseSettings):
             # postgresql+asyncpg://user:password@localhost:5432/bn_name
             return f"postgresql+asyncpg://{self.DB_USER}:{self.DB_PASS}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
         else:
-            return f"sqlite+aiosqlite:///{self.DB_NAME}"
+            return f"sqlite+aiosqlite:///{self.DB_NAME}.db"
 
     @property
     def SYNC_DATABASE_URL(self) -> str:
@@ -60,7 +60,7 @@ class Settings(BaseSettings):
             # postgresql+psycopg://postgres:postgres@localhost:5432/sa
             return f"postgresql+psycopg://{self.DB_USER}:{self.DB_PASS}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
         else:
-            return f"sqlite:///{self.DB_NAME}"
+            return f"sqlite:///{self.DB_NAME}.db"
 
     model_config = SettingsConfigDict(env_file="./src/.env")
     api: ApiPrefix = ApiPrefix()

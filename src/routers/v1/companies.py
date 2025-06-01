@@ -1,7 +1,7 @@
 from fastapi import APIRouter
-from routers.dependencies import UOWDep
-from schemas.companies import CompanySchema, CompanySchemaAdd, CompanySchemaEdit
-from services.companies import CompaniesService
+from src.routers.dependencies import UOWDep
+from src.schemas.companies import CompanySchemaBase, CompanySchemaAdd, CompanySchemaEdit
+from src.services.companies import CompaniesService
 
 
 router = APIRouter(prefix="/companies", tags=["companies"])

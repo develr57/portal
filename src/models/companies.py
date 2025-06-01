@@ -1,7 +1,8 @@
+from typing import TYPE_CHECKING
 from src.models.base import Base, bigint_pk, created_at, updated_at
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import String
-from typing import TYPE_CHECKING
+
 
 if TYPE_CHECKING:
     from src.models.departments import Departments
@@ -16,6 +17,4 @@ class Companies(Base):
     created_at: Mapped[created_at]
     updated_at: Mapped[updated_at]
 
-    departments: Mapped[list["Departments"]] = relationship(
-        back_populates="company",
-    )
+    departments: Mapped[list["Departments"]] = relationship(back_populates="company")

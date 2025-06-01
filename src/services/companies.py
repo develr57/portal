@@ -1,5 +1,5 @@
-from utils.unitofwork import IUnitOfWork
-from schemas.companies import CompanySchema, CompanySchemaAdd, CompanySchemaEdit
+from src.utils.unitofwork import IUnitOfWork
+from src.schemas.companies import CompanySchemaBase, CompanySchemaAdd, CompanySchemaEdit
 
 
 class CompaniesService:
