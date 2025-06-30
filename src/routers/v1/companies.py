@@ -9,13 +9,13 @@ router = APIRouter(prefix="/companies", tags=["companies"])
 
 @router.get(path="")
 async def get_all(uow: UOWDep):
-    companies = CompaniesService.get_companies(uow)
+    companies = CompaniesService.get_companies(uow=uow)
     return companies
 
 
 @router.get(path="/{id}")
 async def get_one(id: int, uow: UOWDep):
-    company = CompaniesService.get_company(uow, dict(id=id))
+    company = CompaniesService.get_company(uow=uow, data=dict(id=id))
     return company
 
 
@@ -26,6 +26,6 @@ async def add(company: CompanySchemaAdd, uow: UOWDep):
 
 
 @router.patch("/{id}")
-async def edit_task(id: int, company: CompanySchemaEdit, uow: UOWDep):
+async def edit(id: int, company: CompanySchemaEdit, uow: UOWDep):
     await CompaniesService().edit_company(uow, id, company)
     return {"ok": True}
