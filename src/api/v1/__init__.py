@@ -1,8 +1,6 @@
-import os, sys
-sys.path.insert(1, os.path.join(sys.path[0], '..'))
 from fastapi import APIRouter
 from .companies import router as company_router
-from src.config import settings
+from config import settings
 
 
 router = APIRouter(

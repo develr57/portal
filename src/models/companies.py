@@ -1,8 +1,8 @@
 from typing import TYPE_CHECKING
-from src.models.base import Base, bigint_pk, created_at, updated_at
+from models.base import Base, bigint_pk, created_at, updated_at
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import String
-from src.schemas.companies import CompanySchemaBase
+from schemas.companies import CompanySchemaBase
 
 
 if TYPE_CHECKING:

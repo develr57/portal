@@ -1,15 +1,15 @@
 from fastapi import APIRouter
-from src.routers.dependencies import UOWDep
-from src.schemas.companies import CompanySchemaBase, CompanySchemaAdd, CompanySchemaEdit
-from src.services.companies import CompaniesService
+from api.dependencies import UOWDep
+from schemas.companies import CompanySchemaBase, CompanySchemaAdd, CompanySchemaEdit
+from services.companies import CompaniesService
 
 
-router = APIRouter(prefix="/companies", tags=["companies"])
+router = APIRouter(prefix="/companies", tags=["Companies"])
 
 
 @router.get(path="")
 async def get_all(uow: UOWDep):
-    companies = CompaniesService.get_companies(uow=uow)
+    companies = CompaniesService.get_companies(uow)
     return companies
 
 

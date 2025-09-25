@@ -1,5 +1,5 @@
-from src.models.departments import Departments
-from src.utils.repository import SQLAlchemyRepository
+from models.departments import Departments
+from utils.repository import SQLAlchemyRepository
 
 
 class DepartmentsRepository(SQLAlchemyRepository):

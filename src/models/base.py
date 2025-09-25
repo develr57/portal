@@ -4,7 +4,7 @@ from sqlalchemy import MetaData, text
 from sqlalchemy.types import BigInteger
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
-from src.config import settings
+from config import settings
 from typing import Annotated
 
 

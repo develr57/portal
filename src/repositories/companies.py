@@ -1,5 +1,5 @@
-from src.models.companies import Companies
-from src.utils.repository import SQLAlchemyRepository
+from models.companies import Companies
+from utils.repository import SQLAlchemyRepository
 
 
 class CompaniesRepository(SQLAlchemyRepository):

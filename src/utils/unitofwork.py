@@ -1,9 +1,9 @@
 from abc import ABC, abstractmethod
 from typing import Type
 
-from src.database import async_session_factory
-from src.repositories.companies import CompaniesRepository
-from src.repositories.departments import DepartmentsRepository
+from database import async_session_factory
+from repositories.companies import CompaniesRepository
+from repositories.departments import DepartmentsRepository
 
 
 # https://github1s.com/cosmicpython/code/tree/chapter_06_uow
