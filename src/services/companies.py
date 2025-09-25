@@ -1,5 +1,5 @@
 from utils.unitofwork import IUnitOfWork
-from schemas.companies import CompanySchemaBase, CompanySchemaAdd, CompanySchemaEdit
+from schemas.companies import CompanyCreateSchema, CompanyUpdateSchema
 
 
 class CompaniesService:
@@ -16,7 +16,7 @@ class CompaniesService:
             return company
 
 
-    async def add_company(self, uow: IUnitOfWork, company: CompanySchemaAdd):
+    async def add_company(self, uow: IUnitOfWork, company: CompanyCreateSchema):
         companies_dict = company.model_dump()
         async with uow:
             company_id = await uow.companies.add_one(companies_dict)
@@ -24,7 +24,7 @@ class CompaniesService:
             return company_id
     
 
-    async def edit_company(self, uow: IUnitOfWork, company_id: int, company: CompanySchemaEdit):
+    async def edit_company(self, uow: IUnitOfWork, company_id: int, company: CompanyUpdateSchema):
         companies_dict = company.model_dump()
         async with uow:
             await uow.companies.edit_one(company_id, companies_dict)
