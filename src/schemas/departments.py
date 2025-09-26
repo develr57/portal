@@ -1,23 +1,28 @@
-import datetime
-from pydantic import BaseModel, ConfigDict
+import uuid
+from _datetime import datetime
+from pydantic import BaseModel
 
 
-class DepartmentSchema(BaseModel):
-    id: int
+class DepartmentAddSchema(BaseModel):
+    # id: uuid.UUID
     name: str
     full_name: str
-    company_id: int
+    company_id: uuid.UUID
     created_at: datetime
     updated_at: datetime
 
-    model_config = ConfigDict(from_attributes=True)
 
-
-class DepartmentSchemaAdd(BaseModel):
+class DepartmentEditSchema(BaseModel):
     name: str
     full_name: str
-    company_id: int
+    company_id: uuid.UUID
+    updated_at: datetime
 
 
-class DepartmentSchemaEdit(BaseModel):
+class DepartmentResponseSchema(BaseModel):
+    id: uuid.UUID
+    name: str
+    full_name: str
+    company_id: uuid.UUID
+    created_at: datetime
     updated_at: datetime

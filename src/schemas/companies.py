@@ -1,26 +1,17 @@
 import uuid
 from _datetime import datetime
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel
 
 
-class CompanyCreateSchema(BaseModel):
+class CompanyAddSchema(BaseModel):
     # id: uuid.UUID
     name: str
     full_name: str
     created_at: datetime
     updated_at: datetime
 
-    # model_config = {
-    #     "json_schema_extra": {
-    #         "examples": [{
-    #             "name": "ТОО АМК",
-    #             "full_name": "Товарищество с ограниченной ответственностью Актюбинская медная компания",
-    #         }]
-    #     }
-    # }
 
-
-class CompanyUpdateSchema(BaseModel):
+class CompanyEditSchema(BaseModel):
     name: str
     full_name: str
     updated_at: datetime
@@ -32,12 +23,3 @@ class CompanyResponseSchema(BaseModel):
     full_name: str
     created_at: datetime
     updated_at: datetime
-
-    model_config = {
-        "json_schema_extra": {
-            "examples": [{
-                "name": "ТОО АМК",
-                "full_name": "Товарищество с ограниченной ответственностью Актюбинская медная компания",
-            }]
-        }
-    }

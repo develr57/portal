@@ -1,6 +1,7 @@
+import uuid
 from abc import ABC, abstractmethod
 
-from sqlalchemy import insert, select, update
+from sqlalchemy import insert, select, update, delete
 from sqlalchemy.ext.asyncio import AsyncSession
 
 
@@ -25,7 +26,7 @@ class SQLAlchemyRepository(AbstractRepository):
         res = await self.session.execute(stmt)
         return res.scalar_one()
 
-    async def edit_one(self, id: int, data: dict) -> int:
+    async def edit_one(self, id: uuid.UUID, data: dict) -> int:
         stmt = update(self.model).values(**data).filter_by(id=id).returning(self.model.id)
         res = await self.session.execute(stmt)
         return res.scalar_one()
@@ -36,8 +37,13 @@ class SQLAlchemyRepository(AbstractRepository):
         res = [row[0].to_read_model() for row in res.all()]
         return res
 
-    async def find_one(self, **filter_by):
-        stmt = select(self.model).filter_by(**filter_by)
+    async def find_one(self, data):
+        stmt = select(self.model).filter_by(**data)
         res = await self.session.execute(stmt)
         res = res.scalar_one().to_read_model()
+        return res
+
+    async def delete(self, id: uuid.UUID):
+        stmt = delete(self.model).filter_by(id=id)
+        res = await self.session.execute(stmt)
         return res
