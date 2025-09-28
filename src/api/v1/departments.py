@@ -1,7 +1,7 @@
 import uuid
 from fastapi import APIRouter
 from api.dependencies import UOWDep
-from schemas.departments import DepartmentAddSchema, DepartmentEditSchema
+from schemas.departments import DepartmentAddSchema, DepartmentEditSchema, DepartmentResponseSchema
 from services.departments import DepartmentsService
 
 
@@ -10,25 +10,25 @@ router = APIRouter(prefix="/departments", tags=["Departments"])
 
 @router.get(path="")
 async def get_all(uow: UOWDep):
-    departments = await DepartmentsService().get_departments(uow)
-    return departments
+    res = await DepartmentsService().get_departments(uow=uow)
+    return res
 
 
-@router.get(path="/{id}")
+@router.get(path="/{id}", response_model=DepartmentResponseSchema)
 async def get_one(id: uuid.UUID, uow: UOWDep):
-    department = await DepartmentsService().get_department(uow, dict(id=id))
-    return department
+    res = await DepartmentsService().get_department(uow=uow, data=dict(id=id))
+    return res
 
 
 @router.post("")
 async def add(schema: DepartmentAddSchema, uow: UOWDep):
-    id = await DepartmentsService().add_department(uow, schema)
-    return {"company_id": id}
+    id = await DepartmentsService().add_department(uow=uow, schema=schema)
+    return {"dept_id": id}
 
 
 @router.patch("/{id}")
 async def edit(id: uuid.UUID, schema: DepartmentEditSchema, uow: UOWDep):
-    await DepartmentsService().edit_department(uow, id, schema)
+    await DepartmentsService().edit_department(uow=uow, id=id, schema=schema)
     return {"ok": True}
 
 

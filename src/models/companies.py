@@ -6,7 +6,7 @@ from schemas.companies import CompanyResponseSchema
 
 
 if TYPE_CHECKING:
-    from src.models.departments import Departments
+    from departments import Departments
 
 
 class Companies(Base):

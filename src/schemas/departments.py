@@ -26,3 +26,7 @@ class DepartmentResponseSchema(BaseModel):
     company_id: uuid.UUID
     created_at: datetime
     updated_at: datetime
+    company: str
+
+    class Config:
+        from_attributes = True
