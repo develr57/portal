@@ -20,3 +20,10 @@ class ObjectsRepository(SQLAlchemyRepository):
         res = await self.session.execute(stmt)
         res = res.scalar_one().to_read_model_with_company()
         return res
+
+
+    async def get_all_by_company_id(self, params: dict):
+        stmt = select(self.model).options(selectinload(self.model.company)).filter_by(**params)
+        res = await self.session.execute(stmt)
+        res = [row[0].to_read_model_with_company() for row in res.all()]
+        return res

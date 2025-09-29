@@ -19,7 +19,7 @@ class ObjectEditSchema(BaseModel):
 
 
 class ObjectResponseSchema(ObjectAddSchema):
-    id: uuid.UUID
+    id: int
 
     class Config:
         from_attributes = True

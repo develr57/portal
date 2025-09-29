@@ -29,6 +29,12 @@ class ObjectsService:
             return res
 
 
+    async def get_objects_by_company_id(self, uow: IUnitOfWork, params: dict):
+        async with uow:
+            res = await uow.objects.get_all_by_company_id(params=params)
+            return res
+
+
     async def add_object(self, uow: IUnitOfWork, schema: ObjectAddSchema) -> int:
         res_dict = schema.model_dump()
         async with uow:

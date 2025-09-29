@@ -32,6 +32,12 @@ async def get_one_with_company(id: int, uow: UOWDep):
     return res
 
 
+@router.get(path="_by_company_id/{id}")
+async def get_all_by_company_id(id: uuid.UUID, uow: UOWDep):
+    res = await ObjectsService().get_objects_by_company_id(uow=uow, params=dict(company_id=id))
+    return res
+
+
 @router.post("")
 async def add(schema: ObjectAddSchema, uow: UOWDep):
     id = await ObjectsService().add_object(uow=uow, schema=schema)
