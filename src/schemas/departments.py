@@ -4,12 +4,14 @@ from pydantic import BaseModel
 
 
 class DepartmentAddSchema(BaseModel):
-    # id: uuid.UUID
     name: str
     full_name: str
     company_id: uuid.UUID
     created_at: datetime
     updated_at: datetime
+
+    class Config:
+        from_attributes = True
 
 
 class DepartmentEditSchema(BaseModel):
@@ -19,14 +21,10 @@ class DepartmentEditSchema(BaseModel):
     updated_at: datetime
 
 
-class DepartmentResponseSchema(BaseModel):
+class DepartmentResponseSchema(DepartmentAddSchema):
     id: uuid.UUID
-    name: str
-    full_name: str
-    company_id: uuid.UUID
-    created_at: datetime
-    updated_at: datetime
-    company: str
 
-    class Config:
-        from_attributes = True
+
+class DepartmentResponseSchemaWithCompany(DepartmentResponseSchema):
+    company_name: str
+    company_full_name: str

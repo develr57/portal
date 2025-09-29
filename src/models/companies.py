@@ -4,21 +4,22 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import String
 from schemas.companies import CompanyResponseSchema
 
-
 if TYPE_CHECKING:
     from departments import Departments
+    from objects import Objects
 
 
 class Companies(Base):
     __tablename__ = "companies"
 
     id: Mapped[uuid_pk]
-    name: Mapped[str] = mapped_column(String(100))
-    full_name: Mapped[str] = mapped_column(String(150))
+    name: Mapped[str] = mapped_column(String(100), nullable=False)
+    full_name: Mapped[str] = mapped_column(String(150), nullable=True)
     created_at: Mapped[created_at]
     updated_at: Mapped[updated_at]
 
     departments: Mapped[list["Departments"]] = relationship(back_populates="company")
+    objects: Mapped[list["Objects"]] = relationship(back_populates="company")
 
     def to_read_model(self) -> "CompanyResponseSchema":
         return CompanyResponseSchema(
@@ -26,5 +27,5 @@ class Companies(Base):
             name=self.name,
             full_name=self.full_name,
             created_at=self.created_at,
-            updated_at=self.updated_at,
+            updated_at=self.updated_at
         )

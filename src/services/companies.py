@@ -7,32 +7,32 @@ class CompaniesService:
 
     async def get_companies(self, uow: IUnitOfWork):
         async with uow:
-            companies = await uow.companies.find_all()
-            return companies
+            res = await uow.companies.find_all()
+            return res
     
 
-    async def get_company(self, uow: IUnitOfWork, data: dict):
+    async def get_company(self, uow: IUnitOfWork, params: dict):
         async with uow:
-            company = await uow.companies.find_one(data)
-            return company
+            res = await uow.companies.find_one(params=params)
+            return res
 
 
     async def add_company(self, uow: IUnitOfWork, schema: CompanyAddSchema) -> uuid.UUID:
-        companies_dict = schema.model_dump()
+        res_dict = schema.model_dump()
         async with uow:
-            id = await uow.companies.add_one(companies_dict)
+            id = await uow.companies.add_one(res_dict)
             await uow.commit()
             return id
     
 
-    async def edit_company(self, uow: IUnitOfWork, id: uuid.UUID, schema: CompanyEditSchema):
-        companies_dict = schema.model_dump()
+    async def edit_company(self, uow: IUnitOfWork, params: dict, schema: CompanyEditSchema):
+        res_dict = schema.model_dump()
         async with uow:
-            await uow.companies.edit_one(id, companies_dict)
+            await uow.companies.edit_one(params=params, data=res_dict)
             await uow.commit()
 
 
-    async def delete_company(self, uow: IUnitOfWork, id: uuid.UUID):
+    async def delete_company(self, uow: IUnitOfWork, params: dict):
         async with uow:
-            await uow.companies.delete(id)
+            await uow.companies.delete(params=params)
             await uow.commit()

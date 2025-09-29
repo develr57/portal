@@ -4,11 +4,13 @@ from pydantic import BaseModel
 
 
 class CompanyAddSchema(BaseModel):
-    # id: uuid.UUID
     name: str
     full_name: str
     created_at: datetime
     updated_at: datetime
+
+    class Config:
+        from_attributes = True
 
 
 class CompanyEditSchema(BaseModel):
@@ -17,12 +19,8 @@ class CompanyEditSchema(BaseModel):
     updated_at: datetime
 
 
-class CompanyResponseSchema(BaseModel):
+class CompanyResponseSchema(CompanyAddSchema):
     id: uuid.UUID
-    name: str
-    full_name: str
-    created_at: datetime
-    updated_at: datetime
 
     class Config:
         from_attributes = True

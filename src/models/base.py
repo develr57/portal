@@ -1,10 +1,7 @@
-import datetime
-import uuid
-
+import datetime, uuid
 from sqlalchemy import MetaData, text, UUID
 from sqlalchemy.types import BigInteger, Integer
 from sqlalchemy.orm import DeclarativeBase, mapped_column
-
 from config import settings
 from typing import Annotated
 

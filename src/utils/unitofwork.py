@@ -4,12 +4,14 @@ from typing import Type
 from database import async_session_factory
 from repositories.companies import CompaniesRepository
 from repositories.departments import DepartmentsRepository
+from repositories.objects import ObjectsRepository
 
 
 # https://github1s.com/cosmicpython/code/tree/chapter_06_uow
 class IUnitOfWork(ABC):
     companies: Type[CompaniesRepository]
     departments: Type[DepartmentsRepository]
+    objects: Type[ObjectsRepository]
 
     @abstractmethod
     def __init__(self):
@@ -41,6 +43,7 @@ class UnitOfWork:
 
         self.companies = CompaniesRepository(self.session)
         self.departments = DepartmentsRepository(self.session)
+        self.objects = ObjectsRepository(self.session)
 
     async def __aexit__(self, *args):
         await self.rollback()
