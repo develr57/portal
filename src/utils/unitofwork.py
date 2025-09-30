@@ -4,18 +4,26 @@ from typing import Type
 from database import async_session_factory
 from repositories.companies import CompaniesRepository
 from repositories.departments import DepartmentsRepository
+from repositories.inst_points import InstPointsRepository
 from repositories.manufacturers import ManufacturersRepository
 from repositories.objects import ObjectsRepository
+from repositories.statuses import StatusesRepository
+from repositories.storages import StoragesRepository
 from repositories.types import TypesRepository
+from repositories.units import UnitsRepository
 
 
 # https://github1s.com/cosmicpython/code/tree/chapter_06_uow
 class IUnitOfWork(ABC):
     companies: Type[CompaniesRepository]
     departments: Type[DepartmentsRepository]
-    objects: Type[ObjectsRepository]
+    inst_points: Type[InstPointsRepository]
     manufacturers: Type[ManufacturersRepository]
+    objects: Type[ObjectsRepository]
+    statuses: Type[StatusesRepository]
+    storages: Type[StoragesRepository]
     types: Type[TypesRepository]
+    units: UnitsRepository
 
     @abstractmethod
     def __init__(self):
@@ -47,9 +55,13 @@ class UnitOfWork:
 
         self.companies = CompaniesRepository(self.session)
         self.departments = DepartmentsRepository(self.session)
+        self.inst_points = InstPointsRepository(self.session)
         self.manufacturers = ManufacturersRepository(self.session)
         self.objects = ObjectsRepository(self.session)
+        self.statuses = StatusesRepository(self.session)
+        self.storages = StoragesRepository(self.session)
         self.types = TypesRepository(self.session)
+        self.units = UnitsRepository(self.session)
 
     async def __aexit__(self, *args):
         await self.rollback()
