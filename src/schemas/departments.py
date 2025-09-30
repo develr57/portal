@@ -1,4 +1,3 @@
-import uuid
 from _datetime import datetime
 from pydantic import BaseModel
 
@@ -6,7 +5,7 @@ from pydantic import BaseModel
 class DepartmentAddSchema(BaseModel):
     name: str
     full_name: str
-    company_id: uuid.UUID
+    company_id: int
     created_at: datetime
     updated_at: datetime
 
@@ -17,12 +16,12 @@ class DepartmentAddSchema(BaseModel):
 class DepartmentEditSchema(BaseModel):
     name: str
     full_name: str
-    company_id: uuid.UUID
+    company_id: int
     updated_at: datetime
 
 
 class DepartmentResponseSchema(DepartmentAddSchema):
-    id: uuid.UUID
+    id: int
 
 
 class DepartmentResponseSchemaWithCompany(DepartmentResponseSchema):

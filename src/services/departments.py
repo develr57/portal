@@ -1,4 +1,3 @@
-import uuid
 from utils.unitofwork import IUnitOfWork
 from schemas.departments import DepartmentAddSchema, DepartmentEditSchema
 
@@ -29,7 +28,7 @@ class DepartmentsService:
             return res
 
 
-    async def add_department(self, uow: IUnitOfWork, schema: DepartmentAddSchema) -> uuid.UUID:
+    async def add_department(self, uow: IUnitOfWork, schema: DepartmentAddSchema) -> int:
         res_dict = schema.model_dump()
         async with uow:
             id = await uow.departments.add_one(res_dict)

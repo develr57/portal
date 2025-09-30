@@ -1,4 +1,3 @@
-import uuid
 from fastapi import APIRouter
 from api.dependencies import UOWDep
 from schemas.objects import ObjectAddSchema, ObjectEditSchema, ObjectResponseSchema
@@ -33,7 +32,7 @@ async def get_one_with_company(id: int, uow: UOWDep):
 
 
 @router.get(path="_by_company_id/{id}")
-async def get_all_by_company_id(id: uuid.UUID, uow: UOWDep):
+async def get_all_by_company_id(id: int, uow: UOWDep):
     res = await ObjectsService().get_objects_by_company_id(uow=uow, params=dict(company_id=id))
     return res
 

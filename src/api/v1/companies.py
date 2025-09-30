@@ -1,4 +1,3 @@
-import uuid
 from fastapi import APIRouter
 from api.dependencies import UOWDep
 from schemas.companies import CompanyAddSchema, CompanyEditSchema, CompanyResponseSchema
@@ -15,7 +14,7 @@ async def get_all(uow: UOWDep):
 
 
 @router.get(path="/{id}", response_model=CompanyResponseSchema)
-async def get_one(id: uuid.UUID, uow: UOWDep):
+async def get_one(id: int, uow: UOWDep):
     res = await CompaniesService().get_company(uow=uow, params=dict(id=id))
     return res
 
@@ -27,12 +26,12 @@ async def add(schema: CompanyAddSchema, uow: UOWDep):
 
 
 @router.patch("/{id}")
-async def edit(id: uuid.UUID, schema: CompanyEditSchema, uow: UOWDep):
+async def edit(id: int, schema: CompanyEditSchema, uow: UOWDep):
     await CompaniesService().edit_company(uow=uow, params=dict(id=id), schema=schema)
     return {"ok": True}
 
 
 @router.delete("/{id}")
-async def delete(id: uuid.UUID, uow: UOWDep):
+async def delete(id: int, uow: UOWDep):
     await CompaniesService().delete_company(uow=uow, params=dict(id=id))
     return {"ok": True}

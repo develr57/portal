@@ -6,23 +6,23 @@ from pydantic import BaseModel
 class ObjectAddSchema(BaseModel):
     name: str
     full_name: str
-    company_id: uuid.UUID
+    company_id: int
     created_at: datetime
     updated_at: datetime
+
+    class Config:
+        from_attributes = True
 
 
 class ObjectEditSchema(BaseModel):
     name: str
     full_name: str
-    company_id: uuid.UUID
+    company_id: int
     updated_at: datetime
 
 
 class ObjectResponseSchema(ObjectAddSchema):
     id: int
-
-    class Config:
-        from_attributes = True
 
 
 class ObjectResponseSchemaWithCompany(ObjectResponseSchema):

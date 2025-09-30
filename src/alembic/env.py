@@ -13,6 +13,8 @@ from config import settings
 from models.base import Base
 from models.companies import Companies
 from models.departments import Departments
+from models.manufacturers import Manufacturers
+from models.objects import Objects
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

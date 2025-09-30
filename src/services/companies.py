@@ -1,4 +1,3 @@
-import uuid
 from utils.unitofwork import IUnitOfWork
 from schemas.companies import CompanyAddSchema, CompanyEditSchema
 
@@ -17,7 +16,7 @@ class CompaniesService:
             return res
 
 
-    async def add_company(self, uow: IUnitOfWork, schema: CompanyAddSchema) -> uuid.UUID:
+    async def add_company(self, uow: IUnitOfWork, schema: CompanyAddSchema) -> int:
         res_dict = schema.model_dump()
         async with uow:
             id = await uow.companies.add_one(res_dict)

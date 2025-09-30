@@ -1,5 +1,5 @@
 from typing import TYPE_CHECKING
-from models.base import Base, uuid_pk, created_at, updated_at
+from models.base import Base, int_pk, created_at, updated_at
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import String, ForeignKey
 from schemas.departments import DepartmentResponseSchema, DepartmentResponseSchemaWithCompany
@@ -11,10 +11,10 @@ if TYPE_CHECKING:
 class Departments(Base):
     __tablename__ = "departments"
 
-    id: Mapped[uuid_pk]
+    id: Mapped[int_pk]
     name: Mapped[str] = mapped_column(String(100), nullable=False)
     full_name: Mapped[str] = mapped_column(String(150), nullable=True)
-    company_id: Mapped[uuid_pk] = mapped_column(ForeignKey("companies.id", ondelete="CASCADE"))
+    company_id: Mapped[int_pk] = mapped_column(ForeignKey("companies.id", ondelete="CASCADE"))
     created_at: Mapped[created_at]
     updated_at: Mapped[updated_at]
 

@@ -1,5 +1,5 @@
 from typing import TYPE_CHECKING
-from models.base import Base, created_at, updated_at, uuid_pk, int_pk
+from models.base import Base, int_pk, created_at, updated_at
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import String, ForeignKey
 from schemas.objects import ObjectResponseSchema, ObjectResponseSchemaWithCompany
@@ -14,7 +14,7 @@ class Objects(Base):
     id: Mapped[int_pk]
     name: Mapped[str] = mapped_column(String(100), nullable=False)
     full_name: Mapped[str] = mapped_column(String(150), nullable=True)
-    company_id: Mapped[uuid_pk] = mapped_column(ForeignKey("companies.id", ondelete="CASCADE"))
+    company_id: Mapped[int_pk] = mapped_column(ForeignKey("companies.id", ondelete="CASCADE"))
     created_at: Mapped[created_at]
     updated_at: Mapped[updated_at]
 
