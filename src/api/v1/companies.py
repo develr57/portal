@@ -9,29 +9,29 @@ router = APIRouter(prefix="/companies", tags=["Companies"])
 
 @router.get(path="")
 async def get_all(uow: UOWDep):
-    res = await CompaniesService().get_companies(uow=uow)
+    res = await CompaniesService().get_all(uow=uow)
     return res
 
 
 @router.get(path="/{id}", response_model=CompanyResponseSchema)
 async def get_one(id: int, uow: UOWDep):
-    res = await CompaniesService().get_company(uow=uow, params=dict(id=id))
+    res = await CompaniesService().get_one(uow=uow, params=dict(id=id))
     return res
 
 
 @router.post("")
 async def add(schema: CompanyAddSchema, uow: UOWDep):
-    id = await CompaniesService().add_company(uow=uow, schema=schema)
+    id = await CompaniesService().add(uow=uow, schema=schema)
     return {"company_id": id}
 
 
 @router.patch("/{id}")
 async def edit(id: int, schema: CompanyEditSchema, uow: UOWDep):
-    await CompaniesService().edit_company(uow=uow, params=dict(id=id), schema=schema)
+    await CompaniesService().edit(uow=uow, params=dict(id=id), schema=schema)
     return {"ok": True}
 
 
 @router.delete("/{id}")
 async def delete(id: int, uow: UOWDep):
-    await CompaniesService().delete_company(uow=uow, params=dict(id=id))
+    await CompaniesService().delete(uow=uow, params=dict(id=id))
     return {"ok": True}
