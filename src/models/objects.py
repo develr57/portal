@@ -6,6 +6,8 @@ from schemas.objects import ObjectResponseSchema, ObjectResponseSchemaWithCompan
 
 if TYPE_CHECKING:
     from companies import Companies
+    from inst_points import InstPoints
+    from storages import Storages
 
 
 class Objects(Base):
@@ -19,6 +21,9 @@ class Objects(Base):
     updated_at: Mapped[updated_at]
 
     company: Mapped["Companies"] = relationship(back_populates="objects")
+    inst_points: Mapped[list["InstPoints"]] = relationship(back_populates="objects")
+    storages: Mapped[list["Storages"]] = relationship(back_populates="objects")
+
 
     def to_read_model(self) -> "ObjectResponseSchema":
         return ObjectResponseSchema(
@@ -31,7 +36,7 @@ class Objects(Base):
         )
 
 
-    def to_read_model_with_company(self) -> "ObjectResponseSchemaWithCompany":
+    def to_read_model_with_dept_and_object(self) -> "ObjectResponseSchemaWithCompany":
         return ObjectResponseSchemaWithCompany(
             id=self.id,
             name=self.name,

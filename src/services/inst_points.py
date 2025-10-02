@@ -12,7 +12,7 @@ class InstPointsService:
 
     async def get_all_with_dept(self, uow: IUnitOfWork):
         async with uow:
-            res = await uow.inst_points.find_all_with_dept()
+            res = await uow.inst_points.find_all_with_dept_and_object()
             return res
 
 
@@ -24,7 +24,7 @@ class InstPointsService:
 
     async def get_one_with_dept(self, uow: IUnitOfWork, params: dict):
         async with uow:
-            res = await uow.inst_points.find_one_with_dept(params=params)
+            res = await uow.inst_points.find_one_with_dept_and_object(params=params)
             return res
 
 

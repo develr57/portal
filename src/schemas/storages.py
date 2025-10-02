@@ -6,6 +6,7 @@ class StorageAddSchema(BaseModel):
     storage: str
     description: str
     dept_id: int
+    object_id: int
     created_at: datetime
     updated_at: datetime
 
@@ -17,6 +18,7 @@ class StorageEditSchema(BaseModel):
     storage: str
     description: str
     dept_id: int
+    object_id: int
     updated_at: datetime
 
 
@@ -24,6 +26,8 @@ class StorageResponseSchema(StorageAddSchema):
     id: int
 
 
-class StorageResponseSchemaWithDepartment(StorageResponseSchema):
+class StorageResponseSchemaWithDeptAndObject(StorageResponseSchema):
     dept_name: str
     dept_full_name: str
+    object_name: str
+    object_full_name: str
