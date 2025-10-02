@@ -9,7 +9,7 @@ from repositories.manufacturers import ManufacturersRepository
 from repositories.objects import ObjectsRepository
 from repositories.statuses import StatusesRepository
 from repositories.storages import StoragesRepository
-from repositories.types import TypesRepository
+from repositories.instr_types import InstrTypesRepository
 from repositories.units import UnitsRepository
 
 
@@ -18,11 +18,11 @@ class IUnitOfWork(ABC):
     companies: Type[CompaniesRepository]
     departments: Type[DepartmentsRepository]
     inst_points: Type[InstPointsRepository]
+    instr_types: Type[InstrTypesRepository]
     manufacturers: Type[ManufacturersRepository]
     objects: Type[ObjectsRepository]
     statuses: Type[StatusesRepository]
     storages: Type[StoragesRepository]
-    types: Type[TypesRepository]
     units: UnitsRepository
 
     @abstractmethod
@@ -56,11 +56,11 @@ class UnitOfWork:
         self.companies = CompaniesRepository(self.session)
         self.departments = DepartmentsRepository(self.session)
         self.inst_points = InstPointsRepository(self.session)
+        self.instr_types = InstrTypesRepository(self.session)
         self.manufacturers = ManufacturersRepository(self.session)
         self.objects = ObjectsRepository(self.session)
         self.statuses = StatusesRepository(self.session)
         self.storages = StoragesRepository(self.session)
-        self.types = TypesRepository(self.session)
         self.units = UnitsRepository(self.session)
 
     async def __aexit__(self, *args):

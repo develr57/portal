@@ -14,11 +14,11 @@ from models.base import Base
 from models.companies import Companies
 from models.departments import Departments
 from models.inst_points import InstPoints
+from models.instr_types import InstrTypes
 from models.manufacturers import Manufacturers
 from models.objects import Objects
 from models.statuses import Statuses
 from models.storages import Storages
-from models.types import Types
 from models.units import Units
 
 # this is the Alembic Config object, which provides

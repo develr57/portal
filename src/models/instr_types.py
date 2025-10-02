@@ -2,14 +2,14 @@ from typing import TYPE_CHECKING
 from models.base import Base, int_pk, created_at, updated_at
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import String
-from schemas.types import TypeResponseSchema
+from schemas.instr_types import InstrTypeResponseSchema
 
 # if TYPE_CHECKING:
     # from departments import Departments
 
 
-class Types(Base):
-    __tablename__ = "types"
+class InstrTypes(Base):
+    __tablename__ = "instr_types"
 
     id: Mapped[int_pk]
     name: Mapped[str] = mapped_column(String(100), nullable=False)
@@ -19,8 +19,8 @@ class Types(Base):
 
     # departments: Mapped[list["Departments"]] = relationship(back_populates="company")
 
-    def to_read_model(self) -> "TypeResponseSchema":
-        return TypeResponseSchema(
+    def to_read_model(self) -> "InstrTypeResponseSchema":
+        return InstrTypeResponseSchema(
             id=self.id,
             name=self.name,
             full_name=self.full_name,

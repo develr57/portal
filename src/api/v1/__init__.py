@@ -6,7 +6,7 @@ from .manufacturers import router as manufacturer_router
 from .objects import router as object_router
 from .statuses import router as status_router
 from .storages import router as storage_router
-from .types import router as type_router
+from .instr_types import router as instr_type_router
 from .units import router as unit_router
 from config import settings
 
@@ -22,5 +22,5 @@ router.include_router(manufacturer_router)
 router.include_router(object_router)
 router.include_router(status_router)
 router.include_router(storage_router)
-router.include_router(type_router)
+router.include_router(instr_type_router)
 router.include_router(unit_router)
