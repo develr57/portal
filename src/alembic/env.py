@@ -22,6 +22,7 @@ from models.objects import Objects
 from models.statuses import Statuses
 from models.storages import Storages
 from models.units import Units
+from models.users import Users
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

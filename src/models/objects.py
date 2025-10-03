@@ -17,7 +17,7 @@ class Objects(Base):
     id: Mapped[int_pk]
     name: Mapped[str] = mapped_column(String(100), nullable=False)
     full_name: Mapped[str] = mapped_column(String(150), nullable=True)
-    company_id: Mapped[int_pk] = mapped_column(ForeignKey("companies.id", ondelete="CASCADE"))
+    company_id: Mapped[int] = mapped_column(ForeignKey("companies.id", ondelete="RESTRICT"))
     created_at: Mapped[created_at]
     updated_at: Mapped[updated_at]
 

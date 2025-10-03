@@ -10,6 +10,7 @@ from .objects import router as object_router
 from .statuses import router as status_router
 from .storages import router as storage_router
 from .units import router as unit_router
+from .users import router as user_router
 from config import settings
 
 
@@ -28,3 +29,4 @@ router.include_router(object_router)
 router.include_router(status_router)
 router.include_router(storage_router)
 router.include_router(unit_router)
+router.include_router(user_router)

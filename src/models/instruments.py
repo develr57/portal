@@ -21,27 +21,27 @@ class Instruments(Base):
     __tablename__ = "instruments"
 
     id: Mapped[int_pk]
-    manuf_id: Mapped[int_pk] = mapped_column(ForeignKey("manufacturers.id", ondelete="CASCADE"))
-    instr_type_id: Mapped[int_pk] = mapped_column(ForeignKey("instr_types.id", ondelete="CASCADE"))
+    manuf_id: Mapped[int] = mapped_column(ForeignKey("manufacturers.id", ondelete="RESTRICT"))
+    instr_type_id: Mapped[int] = mapped_column(ForeignKey("instr_types.id", ondelete="RESTRICT"))
     model: Mapped[str] = mapped_column(String(100), nullable=False)
     inv_num: Mapped[str] = mapped_column(String(20), nullable=False)
     serial_num: Mapped[str] = mapped_column(String(50), nullable=False)
     label_num: Mapped[int] = mapped_column(String(20), nullable=False)
     range: Mapped[str] = mapped_column(String(20), nullable=False)
-    unit_id: Mapped[int_pk] = mapped_column(ForeignKey("units.id", ondelete="CASCADE"))
+    unit_id: Mapped[int] = mapped_column(ForeignKey("units.id", ondelete="RESTRICT"))
     val_scale_div: Mapped[float] = mapped_column(Float(), nullable=False, default=0.0)
     accuracy_class: Mapped[float] = mapped_column(Float(), nullable=False, default=0.0)
     commiss_date: Mapped[datetime.date] = mapped_column(Date)
     last_verify_date: Mapped[datetime.date] = mapped_column(Date)
     next_verify_date: Mapped[datetime.date] = mapped_column(Date)
     verif_interval: Mapped[int] = mapped_column(SmallInteger, nullable=False)
-    status_id: Mapped[int] = mapped_column(ForeignKey("statuses.id", ondelete="CASCADE"))
-    inst_object_id: Mapped[int] = mapped_column(ForeignKey("objects.id", ondelete="CASCADE"))
-    inst_point_id: Mapped[int] = mapped_column(ForeignKey("inst_points.id", ondelete="CASCADE"))
-    stor_object_id: Mapped[int] = mapped_column(ForeignKey("objects.id", ondelete="CASCADE"))
-    storage_id: Mapped[int] = mapped_column(ForeignKey("storage.id", ondelete="CASCADE"))
-    company_id: Mapped[int_pk] = mapped_column(ForeignKey("companies.id", ondelete="CASCADE"))
-    dept_id: Mapped[int] = mapped_column(ForeignKey("departments.id", ondelete="CASCADE"))
+    status_id: Mapped[int] = mapped_column(ForeignKey("statuses.id", ondelete="RESTRICT"))
+    inst_object_id: Mapped[int] = mapped_column(ForeignKey("objects.id", ondelete="RESTRICT"))
+    inst_point_id: Mapped[int] = mapped_column(ForeignKey("inst_points.id", ondelete="RESTRICT"))
+    stor_object_id: Mapped[int] = mapped_column(ForeignKey("objects.id", ondelete="RESTRICT"))
+    storage_id: Mapped[int] = mapped_column(ForeignKey("storage.id", ondelete="RESTRICT"))
+    company_id: Mapped[int] = mapped_column(ForeignKey("companies.id", ondelete="RESTRICT"))
+    dept_id: Mapped[int] = mapped_column(ForeignKey("departments.id", ondelete="RESTRICT"))
     created_at: Mapped[created_at]
     updated_at: Mapped[updated_at]
 

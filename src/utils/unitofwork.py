@@ -13,6 +13,7 @@ from repositories.statuses import StatusesRepository
 from repositories.storages import StoragesRepository
 from repositories.instr_types import InstrTypesRepository
 from repositories.units import UnitsRepository
+from repositories.users import UsersRepository
 
 
 # https://github1s.com/cosmicpython/code/tree/chapter_06_uow
@@ -28,6 +29,7 @@ class IUnitOfWork(ABC):
     statuses: Type[StatusesRepository]
     storages: Type[StoragesRepository]
     units: Type[UnitsRepository]
+    users: Type[UsersRepository]
 
     @abstractmethod
     def __init__(self):
@@ -68,6 +70,7 @@ class UnitOfWork:
         self.statuses = StatusesRepository(self.session)
         self.storages = StoragesRepository(self.session)
         self.units = UnitsRepository(self.session)
+        self.users = UsersRepository(self.session)
 
     async def __aexit__(self, *args):
         await self.rollback()

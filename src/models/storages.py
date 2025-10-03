@@ -16,8 +16,8 @@ class Storages(Base):
     id: Mapped[int_pk]
     storage: Mapped[str] = mapped_column(String(100), nullable=False)
     description: Mapped[str] = mapped_column(String(150), nullable=True)
-    dept_id: Mapped[int_pk] = mapped_column(ForeignKey("departments.id", ondelete="CASCADE"))
-    object_id: Mapped[int_pk] = mapped_column(ForeignKey("objects.id", ondelete="CASCADE"))
+    dept_id: Mapped[int] = mapped_column(ForeignKey("departments.id", ondelete="RESTRICT"))
+    object_id: Mapped[int] = mapped_column(ForeignKey("objects.id", ondelete="RESTRICT"))
     created_at: Mapped[created_at]
     updated_at: Mapped[updated_at]
 

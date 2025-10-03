@@ -7,7 +7,7 @@ from schemas.employees import EmployeeResponseSchema, EmployeeResponseSchemaWith
 if TYPE_CHECKING:
     from companies import Companies
     from departments import Departments
-    # from users import Users
+    from users import Users
 
 
 class Employees(Base):
@@ -21,14 +21,14 @@ class Employees(Base):
     is_dept_head: Mapped[bool] = mapped_column(Boolean, default=False)
     is_dept_deputy_head: Mapped[bool] = mapped_column(Boolean, default=False)
     is_metrologist: Mapped[bool] = mapped_column(Boolean, default=False)
-    company_id: Mapped[int_pk] = mapped_column(ForeignKey("companies.id", ondelete="CASCADE"))
-    dept_id: Mapped[int_pk] = mapped_column(ForeignKey("departments.id", ondelete="CASCADE"))
+    company_id: Mapped[int] = mapped_column(ForeignKey("companies.id", ondelete="RESTRICT"))
+    dept_id: Mapped[int] = mapped_column(ForeignKey("departments.id", ondelete="RESTRICT"))
     created_at: Mapped[created_at]
     updated_at: Mapped[updated_at]
 
     company: Mapped["Companies"] = relationship(back_populates="employees")
     department: Mapped["Departments"] = relationship(back_populates="employees")
-    # user: Mapped["Users"] = relationship(back_populates="employee", uselist=False)
+    user: Mapped["Users"] = relationship(back_populates="employee", uselist=False)
 
     def to_read_model(self) -> "EmployeeResponseSchema":
         return EmployeeResponseSchema(
