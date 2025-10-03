@@ -4,8 +4,8 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import String
 from schemas.instr_types import InstrTypeResponseSchema
 
-# if TYPE_CHECKING:
-    # from departments import Departments
+if TYPE_CHECKING:
+    from instruments import Instruments
 
 
 class InstrTypes(Base):
@@ -17,7 +17,7 @@ class InstrTypes(Base):
     created_at: Mapped[created_at]
     updated_at: Mapped[updated_at]
 
-    # departments: Mapped[list["Departments"]] = relationship(back_populates="company")
+    instruments: Mapped[list["Instruments"]] = relationship(back_populates="inst_point")
 
     def to_read_model(self) -> "InstrTypeResponseSchema":
         return InstrTypeResponseSchema(

@@ -6,6 +6,7 @@ from schemas.companies import CompanyResponseSchema
 
 if TYPE_CHECKING:
     from departments import Departments
+    from instruments import Instruments
     from objects import Objects
 
 
@@ -19,6 +20,7 @@ class Companies(Base):
     updated_at: Mapped[updated_at]
 
     departments: Mapped[list["Departments"]] = relationship(back_populates="company")
+    instruments: Mapped[list["Instruments"]] = relationship(back_populates="company")
     objects: Mapped[list["Objects"]] = relationship(back_populates="company")
 
     def to_read_model(self) -> "CompanyResponseSchema":

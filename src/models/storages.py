@@ -6,6 +6,7 @@ from schemas.storages import StorageResponseSchema, StorageResponseSchemaWithDep
 
 if TYPE_CHECKING:
     from departments import Departments
+    from instruments import Instruments
     from objects import Objects
 
 
@@ -21,6 +22,7 @@ class Storages(Base):
     updated_at: Mapped[updated_at]
 
     department: Mapped["Departments"] = relationship(back_populates="storages")
+    instruments: Mapped[list["Instruments"]] = relationship(back_populates="storage")
     object: Mapped["Objects"] = relationship(back_populates="storages")
 
 
@@ -36,7 +38,7 @@ class Storages(Base):
         )
 
 
-    def to_read_model_with_dept(self) -> "StorageResponseSchemaWithDeptAndObject":
+    def to_read_model_with_dept_and_object(self) -> "StorageResponseSchemaWithDeptAndObject":
         return StorageResponseSchemaWithDeptAndObject(
             id=self.id,
             storage=self.storage,

@@ -4,9 +4,8 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import String
 from schemas.statuses import StatusResponseSchema
 
-# if TYPE_CHECKING:
-#     from departments import Departments
-#     from objects import Objects
+if TYPE_CHECKING:
+    from instruments import Instruments
 
 
 class Statuses(Base):
@@ -17,7 +16,7 @@ class Statuses(Base):
     created_at: Mapped[created_at]
     updated_at: Mapped[updated_at]
 
-    # departments: Mapped[list["Departments"]] = relationship(back_populates="company")
+    instruments: Mapped[list["Instruments"]] = relationship(back_populates="status")
 
     def to_read_model(self) -> "StatusResponseSchema":
         return StatusResponseSchema(

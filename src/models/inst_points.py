@@ -6,6 +6,7 @@ from schemas.ints_points import InstPointResponseSchema, InstPointResponseSchema
 
 if TYPE_CHECKING:
     from departments import Departments
+    from instruments import Instruments
     from objects import Objects
 
 
@@ -22,6 +23,7 @@ class InstPoints(Base):
 
     department: Mapped["Departments"] = relationship(back_populates="inst_points")
     object: Mapped["Objects"] = relationship(back_populates="inst_points")
+    instruments: Mapped[list["Instruments"]] = relationship(back_populates="inst_point")
 
     def to_read_model(self) -> "InstPointResponseSchema":
         return InstPointResponseSchema(
@@ -35,7 +37,7 @@ class InstPoints(Base):
         )
 
 
-    def to_read_model_with_dept(self) -> "InstPointResponseSchemaWithDeptAndObject":
+    def to_read_model_with_dept_and_object(self) -> "InstPointResponseSchemaWithDeptAndObject":
         return InstPointResponseSchemaWithDeptAndObject(
             id=self.id,
             point=self.point,
