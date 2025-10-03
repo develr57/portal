@@ -3,9 +3,15 @@ from pydantic import BaseModel
 
 
 class EmployeeEditSchema(BaseModel):
+    surname: str
     name: str
-    full_name: str
+    patronymic: str
+    position: str
+    is_dept_head: bool
+    is_dept_deputy_head: bool
+    is_metrologist: bool
     company_id: int
+    dept_id: int
     updated_at: datetime
 
     class Config:
