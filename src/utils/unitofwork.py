@@ -4,6 +4,7 @@ from typing import Type
 from database import async_session_factory
 from repositories.companies import CompaniesRepository
 from repositories.departments import DepartmentsRepository
+from repositories.employees import EmployeesRepository
 from repositories.instruments import InstrumentsRepository
 from repositories.inst_points import InstPointsRepository
 from repositories.manufacturers import ManufacturersRepository
@@ -18,6 +19,7 @@ from repositories.units import UnitsRepository
 class IUnitOfWork(ABC):
     companies: Type[CompaniesRepository]
     departments: Type[DepartmentsRepository]
+    employees: Type[EmployeesRepository]
     inst_points: Type[InstPointsRepository]
     instr_types: Type[InstrTypesRepository]
     instruments: Type[InstrumentsRepository]
@@ -25,7 +27,7 @@ class IUnitOfWork(ABC):
     objects: Type[ObjectsRepository]
     statuses: Type[StatusesRepository]
     storages: Type[StoragesRepository]
-    units: UnitsRepository
+    units: Type[UnitsRepository]
 
     @abstractmethod
     def __init__(self):
@@ -57,6 +59,7 @@ class UnitOfWork:
 
         self.companies = CompaniesRepository(self.session)
         self.departments = DepartmentsRepository(self.session)
+        self.employees = EmployeesRepository(self.session)
         self.instruments = InstrumentsRepository(self.session)
         self.inst_points = InstPointsRepository(self.session)
         self.instr_types = InstrTypesRepository(self.session)
