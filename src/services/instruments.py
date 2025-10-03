@@ -10,9 +10,9 @@ class InstrumentsService:
             return res
 
 
-    async def get_all_with_all(self, uow: IUnitOfWork):
+    async def get_all_with_other(self, uow: IUnitOfWork):
         async with uow:
-            res = await uow.instruments.find_all_with_all()
+            res = await uow.instruments.find_all_with_other()
             return res
 
 
@@ -22,9 +22,9 @@ class InstrumentsService:
             return res
 
 
-    async def get_one_with_all(self, uow: IUnitOfWork, params: dict):
+    async def get_one_with_other(self, uow: IUnitOfWork, params: dict):
         async with uow:
-            res = await uow.instruments.find_one_with_all(params=params)
+            res = await uow.instruments.find_one_with_other(params=params)
             return res
 
 

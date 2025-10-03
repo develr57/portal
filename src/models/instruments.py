@@ -2,7 +2,7 @@ from typing import TYPE_CHECKING
 from models.base import Base, int_pk, created_at, updated_at
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import String, ForeignKey, Float, Date, SmallInteger
-from schemas.instruments import InstrumentResponseSchema, InstrumentResponseSchemaWithAll
+from schemas.instruments import InstrumentResponseSchema, InstrumentResponseSchemaWithOthers
 import datetime
 
 if TYPE_CHECKING:
@@ -85,8 +85,8 @@ class Instruments(Base):
         )
 
 
-    def to_read_model_with_all(self) -> "InstrumentResponseSchemaWithAll":
-        return InstrumentResponseSchemaWithAll(
+    def to_read_model_with_all(self) -> "InstrumentResponseSchemaWithOthers":
+        return InstrumentResponseSchemaWithOthers(
             id=self.id,
             manuf_id=self.manuf_id,
             instr_type_id=self.instr_type_id,

@@ -13,9 +13,9 @@ async def get_all(uow: UOWDep):
     return res
 
 
-@router.get(path="_with_all")
+@router.get(path="_with_other")
 async def get_all_with_company(uow: UOWDep):
-    res = await InstrumentsService().get_all_with_all(uow=uow)
+    res = await InstrumentsService().get_all_with_other(uow=uow)
     return res
 
 
@@ -25,9 +25,9 @@ async def get_one(id: int, uow: UOWDep):
     return res
 
 
-@router.get(path="_with_all/{id}")
+@router.get(path="_with_other/{id}")
 async def get_one(id: int, uow: UOWDep):
-    res = await InstrumentsService().get_one_with_all(uow=uow, params=dict(id=id))
+    res = await InstrumentsService().get_one_with_other(uow=uow, params=dict(id=id))
     return res
 
 

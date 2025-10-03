@@ -39,7 +39,7 @@ class InstrumentResponseSchema(InstrumentAddSchema):
     id: int
 
 
-class InstrumentResponseSchemaWithAll(InstrumentResponseSchema):
+class InstrumentResponseSchemaWithOthers(InstrumentResponseSchema):
     manuf_name: str
     manuf_full_name: str
     instr_type_name: str
