@@ -2,15 +2,16 @@ from typing import TYPE_CHECKING
 from models.base import Base, int_pk, created_at, updated_at
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import String, ForeignKey, Float, Date, SmallInteger
-from schemas.instruments import InstrumentResponseSchema, InstrumentResponseSchemaWithOthers
+from schemas.instr_history import InstrHistoryResponseSchema, InstrHistoryResponseSchemaWithOthers
 import datetime
 
 if TYPE_CHECKING:
     from companies import Companies
     from departments import Departments
+    from employees import Employees
     from inst_points import InstPoints
-    from instr_history import InstrHistory
     from instr_types import InstrTypes
+    from instruments import Instruments
     from manufacturers import Manufacturers
     from objects import Objects
     from statuses import Statuses
@@ -18,10 +19,11 @@ if TYPE_CHECKING:
     from units import Units
 
 
-class Instruments(Base):
-    __tablename__ = "instruments"
+class InstrHistory(Base):
+    __tablename__ = "instr_history"
 
     id: Mapped[int_pk]
+    instr_id: Mapped[int] = mapped_column(ForeignKey("instruments.id", ondelete="RESTRICT"))
     manuf_id: Mapped[int] = mapped_column(ForeignKey("manufacturers.id", ondelete="RESTRICT"))
     instr_type_id: Mapped[int] = mapped_column(ForeignKey("instr_types.id", ondelete="RESTRICT"))
     model: Mapped[str] = mapped_column(String(100), nullable=False)
@@ -43,24 +45,27 @@ class Instruments(Base):
     storage_id: Mapped[int] = mapped_column(ForeignKey("storage.id", ondelete="RESTRICT"))
     company_id: Mapped[int] = mapped_column(ForeignKey("companies.id", ondelete="RESTRICT"))
     dept_id: Mapped[int] = mapped_column(ForeignKey("departments.id", ondelete="RESTRICT"))
+    emp_id: Mapped[int] = mapped_column(ForeignKey("employees.id", ondelete="RESTRICT"))
     created_at: Mapped[created_at]
     updated_at: Mapped[updated_at]
 
-    company: Mapped["Companies"] = relationship(back_populates="instruments")
-    department: Mapped["Departments"] = relationship(back_populates="instruments")
-    inst_point: Mapped["InstPoints"] = relationship(back_populates="instruments")
-    instr_history: Mapped[list["InstrHistory"]] = relationship(back_populates="instrument")
-    instr_type: Mapped["InstrTypes"] = relationship(back_populates="instruments")
-    manufacturer: Mapped["Manufacturers"] = relationship(back_populates="instruments")
-    object: Mapped["Objects"] = relationship(back_populates="instruments")
-    status: Mapped["Statuses"] = relationship(back_populates="instruments")
-    storage: Mapped["Storages"] = relationship(back_populates="instruments")
-    unit: Mapped["Units"] = relationship(back_populates="instruments")
+    company: Mapped["Companies"] = relationship(back_populates="instr_history")
+    department: Mapped["Departments"] = relationship(back_populates="instr_history")
+    employee: Mapped["Employees"] = relationship(back_populates="instr_history")
+    inst_point: Mapped["InstPoints"] = relationship(back_populates="instr_history")
+    instr_type: Mapped["InstrTypes"] = relationship(back_populates="instr_history")
+    instrument: Mapped["Instruments"] = relationship(back_populates="instr_history")
+    manufacturer: Mapped["Manufacturers"] = relationship(back_populates="instr_history")
+    object: Mapped["Objects"] = relationship(back_populates="instr_history")
+    status: Mapped["Statuses"] = relationship(back_populates="instr_history")
+    storage: Mapped["Storages"] = relationship(back_populates="instr_history")
+    unit: Mapped["Units"] = relationship(back_populates="instr_history")
 
 
-    def to_read_model(self) -> "InstrumentResponseSchema":
-        return InstrumentResponseSchema(
+    def to_read_model(self) -> "InstrHistoryResponseSchema":
+        return InstrHistoryResponseSchema(
             id=self.id,
+            instr_id=self.instr_id,
             manuf_id=self.manuf_id,
             instr_type_id=self.instr_type_id,
             model=self.model,
@@ -82,14 +87,16 @@ class Instruments(Base):
             storage_id=self.storage_id,
             company_id=self.company_id,
             dept_id=self.dept_id,
+            emp_id=self.emp_id,
             created_at=self.created_at,
             updated_at=self.updated_at,
         )
 
 
-    def to_read_model_with_all(self) -> "InstrumentResponseSchemaWithOthers":
-        return InstrumentResponseSchemaWithOthers(
+    def to_read_model_with_all(self) -> "InstrHistoryResponseSchemaWithOthers":
+        return InstrHistoryResponseSchemaWithOthers(
             id=self.id,
+            instr_id=self.instr_id,
             manuf_id=self.manuf_id,
             instr_type_id=self.instr_type_id,
             model=self.model,
@@ -111,6 +118,7 @@ class Instruments(Base):
             storage_id=self.storage_id,
             company_id=self.company_id,
             dept_id=self.dept_id,
+            emp_id=self.emp_id,
             created_at=self.created_at,
             updated_at=self.updated_at,
 
@@ -131,5 +139,9 @@ class Instruments(Base):
             company_name=self.company.name,
             company_full_name=self.company.full_name,
             dept_name=self.department.name,
-            dept_full_name=self.department.full_name
+            dept_full_name=self.department.full_name,
+            emp_surname=self.employee.surname,
+            emp_name=self.employee.name,
+            emp_patronymic=self.employee.patronymic,
+            emp_position=self.employee.position,
         )

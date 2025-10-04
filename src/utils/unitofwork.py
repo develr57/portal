@@ -7,11 +7,12 @@ from repositories.departments import DepartmentsRepository
 from repositories.employees import EmployeesRepository
 from repositories.instruments import InstrumentsRepository
 from repositories.inst_points import InstPointsRepository
+from repositories.instr_history import InstrHistory
+from repositories.instr_types import InstrTypesRepository
 from repositories.manufacturers import ManufacturersRepository
 from repositories.objects import ObjectsRepository
 from repositories.statuses import StatusesRepository
 from repositories.storages import StoragesRepository
-from repositories.instr_types import InstrTypesRepository
 from repositories.units import UnitsRepository
 from repositories.users import UsersRepository
 
@@ -22,6 +23,7 @@ class IUnitOfWork(ABC):
     departments: Type[DepartmentsRepository]
     employees: Type[EmployeesRepository]
     inst_points: Type[InstPointsRepository]
+    instr_history: Type[InstrHistory]
     instr_types: Type[InstrTypesRepository]
     instruments: Type[InstrumentsRepository]
     manufacturers: Type[ManufacturersRepository]
@@ -65,6 +67,7 @@ class UnitOfWork:
         self.instruments = InstrumentsRepository(self.session)
         self.inst_points = InstPointsRepository(self.session)
         self.instr_types = InstrTypesRepository(self.session)
+        self.instr_history = InstrHistory(self.session)
         self.manufacturers = ManufacturersRepository(self.session)
         self.objects = ObjectsRepository(self.session)
         self.statuses = StatusesRepository(self.session)

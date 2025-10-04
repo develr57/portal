@@ -1,0 +1,44 @@
+from models.instr_history import InstrHistory
+from utils.repository import SQLAlchemyRepository
+from sqlalchemy import insert, select, update, delete
+from sqlalchemy.orm import selectinload
+
+
+class InstrHistoryRepository(SQLAlchemyRepository):
+    model = InstrHistory
+
+
+    async def find_all_with_other(self):
+        stmt = select(self.model).options(
+            selectinload(self.model.company)
+            .selectinload(self.model.department)
+            .selectinload(self.model.employee)
+            .selectinload(self.model.inst_point)
+            .selectinload(self.model.instr_type)
+            .selectinload(self.model.manufacturer)
+            .selectinload(self.model.object)
+            .selectinload(self.model.status)
+            .selectinload(self.model.storage)
+            .selectinload(self.model.unit)
+        )
+        res = await self.session.execute(stmt)
+        res = [row[0].to_read_model_with_other() for row in res.all()]
+        return res
+
+
+    async def find_one_with_other(self, params: dict):
+        stmt = select(self.model).options(
+            selectinload(self.model.company)
+            .selectinload(self.model.department)
+            .selectinload(self.model.employee)
+            .selectinload(self.model.inst_point)
+            .selectinload(self.model.instr_type)
+            .selectinload(self.model.manufacturer)
+            .selectinload(self.model.object)
+            .selectinload(self.model.status)
+            .selectinload(self.model.storage)
+            .selectinload(self.model.unit)
+        ).filter_by(**params)
+        res = await self.session.execute(stmt)
+        res = res.scalar_one().to_read_model_with_other()
+        return res

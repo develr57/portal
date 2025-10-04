@@ -14,7 +14,7 @@ async def get_all(uow: UOWDep):
 
 
 @router.get(path="_with_dept")
-async def get_all_with_company(uow: UOWDep):
+async def get_all_with_dept(uow: UOWDep):
     res = await InstPointsService().get_all_with_dept(uow=uow)
     return res
 
@@ -26,7 +26,7 @@ async def get_one(id: int, uow: UOWDep):
 
 
 @router.get(path="_with_dept/{id}")
-async def get_one(id: int, uow: UOWDep):
+async def get_one_with_dept(id: int, uow: UOWDep):
     res = await InstPointsService().get_one_with_dept(uow=uow, params=dict(id=id))
     return res
 

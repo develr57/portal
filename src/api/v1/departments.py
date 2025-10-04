@@ -26,7 +26,7 @@ async def get_one(id: int, uow: UOWDep):
 
 
 @router.get(path="_with_company/{id}")
-async def get_one(id: int, uow: UOWDep):
+async def get_one_with_company(id: int, uow: UOWDep):
     res = await DepartmentsService().get_one_with_company(uow=uow, params=dict(id=id))
     return res
 
