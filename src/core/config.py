@@ -48,7 +48,7 @@ class Settings(BaseSettings):
     REDIS_CONNECTION_TIMEOUT: int
 
     @property
-    def ASYNC_DATABASE_URL(self) -> str:
+    def async_database_url(self) -> str:
         if self.DBMS == "postgresql":
             # postgresql+asyncpg://user:password@localhost:5432/bn_name
             return f"postgresql+asyncpg://{self.DB_USER}:{self.DB_PASS}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
@@ -56,14 +56,14 @@ class Settings(BaseSettings):
             return f"sqlite+aiosqlite:///{self.DB_NAME}.db"
 
     @property
-    def SYNC_DATABASE_URL(self) -> str:
+    def sync_database_url(self) -> str:
         if self.DBMS == "postgresql":
             # postgresql+psycopg://postgres:postgres@localhost:5432/sa
             return f"postgresql+psycopg://{self.DB_USER}:{self.DB_PASS}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
         else:
             return f"sqlite:///{self.DB_NAME}.db"
 
-    model_config = SettingsConfigDict(env_file=("./src/.env", ".env"))
+    model_config = SettingsConfigDict(env_file=("./src/.env",))
     api: ApiPrefix = ApiPrefix()
     naming_convention: dict[str, str] = {
         "ix": "ix_%(column_0_label)s",

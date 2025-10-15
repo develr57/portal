@@ -2,18 +2,18 @@ from typing import AsyncGenerator
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session, sessionmaker
-from config import settings
+from .config import settings
 
 
 sync_engine = create_engine(
-    url=settings.SYNC_DATABASE_URL,
+    url=settings.sync_database_url,
     echo=True,
     # pool_size=settings.POOL_SIZE,
     # max_overflow=settings.MAX_OVERFLOW,
 )
 
 async_engine = create_async_engine(
-    url=settings.ASYNC_DATABASE_URL,
+    url=settings.async_database_url,
     echo=True,
     # pool_size=settings.POOL_SIZE,
     # max_overflow=settings.MAX_OVERFLOW,

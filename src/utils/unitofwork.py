@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import Type
 
-from database import async_session_factory
+from core.database import async_session_factory
 from repositories.companies import CompaniesRepository
 from repositories.departments import DepartmentsRepository
 from repositories.employees import EmployeesRepository
