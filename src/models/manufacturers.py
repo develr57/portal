@@ -6,6 +6,7 @@ from schemas.manufacturers import ManufacturerResponseSchema
 
 if TYPE_CHECKING:
     from instruments import Instruments
+    from instr_history import InstrHistory
 
 
 class Manufacturers(Base):
@@ -18,6 +19,7 @@ class Manufacturers(Base):
     updated_at: Mapped[updated_at]
 
     instruments: Mapped[list["Instruments"]] = relationship(back_populates="manufacturer")
+    instr_history: Mapped[list["InstrHistory"]] = relationship(back_populates="manufacturer")
 
     def to_read_model(self) -> "ManufacturerResponseSchema":
         return ManufacturerResponseSchema(

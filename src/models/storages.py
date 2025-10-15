@@ -7,6 +7,7 @@ from schemas.storages import StorageResponseSchema, StorageResponseSchemaWithDep
 if TYPE_CHECKING:
     from departments import Departments
     from instruments import Instruments
+    from instr_history import InstrHistory
     from objects import Objects
 
 
@@ -23,6 +24,7 @@ class Storages(Base):
 
     department: Mapped["Departments"] = relationship(back_populates="storages")
     instruments: Mapped[list["Instruments"]] = relationship(back_populates="storage")
+    instr_history: Mapped[list["InstrHistory"]] = relationship(back_populates="storage")
     object: Mapped["Objects"] = relationship(back_populates="storages")
 
 

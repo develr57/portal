@@ -7,6 +7,7 @@ from schemas.employees import EmployeeResponseSchema, EmployeeResponseSchemaWith
 if TYPE_CHECKING:
     from companies import Companies
     from departments import Departments
+    from instr_history import InstrHistory
     from users import Users
 
 
@@ -28,6 +29,7 @@ class Employees(Base):
 
     company: Mapped["Companies"] = relationship(back_populates="employees")
     department: Mapped["Departments"] = relationship(back_populates="employees")
+    instr_history: Mapped[list["InstrHistory"]] = relationship(back_populates="employee")
     user: Mapped["Users"] = relationship(back_populates="employee", uselist=False)
 
     def to_read_model(self) -> "EmployeeResponseSchema":

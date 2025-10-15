@@ -6,6 +6,7 @@ from schemas.statuses import StatusResponseSchema
 
 if TYPE_CHECKING:
     from instruments import Instruments
+    from instr_history import InstrHistory
 
 
 class Statuses(Base):
@@ -17,6 +18,7 @@ class Statuses(Base):
     updated_at: Mapped[updated_at]
 
     instruments: Mapped[list["Instruments"]] = relationship(back_populates="status")
+    instr_history: Mapped[list["InstrHistory"]] = relationship(back_populates="status")
 
     def to_read_model(self) -> "StatusResponseSchema":
         return StatusResponseSchema(

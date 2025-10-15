@@ -29,7 +29,7 @@ class InstrHistory(Base):
     model: Mapped[str] = mapped_column(String(100), nullable=False)
     inv_num: Mapped[str] = mapped_column(String(20), nullable=False)
     serial_num: Mapped[str] = mapped_column(String(50), nullable=False)
-    label_num: Mapped[int] = mapped_column(String(20), nullable=False)
+    label_num: Mapped[str] = mapped_column(String(20), nullable=False)
     range: Mapped[str] = mapped_column(String(20), nullable=False)
     unit_id: Mapped[int] = mapped_column(ForeignKey("units.id", ondelete="RESTRICT"))
     val_scale_div: Mapped[float] = mapped_column(Float(), nullable=False, default=0.0)
@@ -42,7 +42,7 @@ class InstrHistory(Base):
     inst_object_id: Mapped[int] = mapped_column(ForeignKey("objects.id", ondelete="RESTRICT"))
     inst_point_id: Mapped[int] = mapped_column(ForeignKey("inst_points.id", ondelete="RESTRICT"))
     stor_object_id: Mapped[int] = mapped_column(ForeignKey("objects.id", ondelete="RESTRICT"))
-    storage_id: Mapped[int] = mapped_column(ForeignKey("storage.id", ondelete="RESTRICT"))
+    storage_id: Mapped[int] = mapped_column(ForeignKey("storages.id", ondelete="RESTRICT"))
     company_id: Mapped[int] = mapped_column(ForeignKey("companies.id", ondelete="RESTRICT"))
     dept_id: Mapped[int] = mapped_column(ForeignKey("departments.id", ondelete="RESTRICT"))
     emp_id: Mapped[int] = mapped_column(ForeignKey("employees.id", ondelete="RESTRICT"))
@@ -56,7 +56,14 @@ class InstrHistory(Base):
     instr_type: Mapped["InstrTypes"] = relationship(back_populates="instr_history")
     instrument: Mapped["Instruments"] = relationship(back_populates="instr_history")
     manufacturer: Mapped["Manufacturers"] = relationship(back_populates="instr_history")
-    object: Mapped["Objects"] = relationship(back_populates="instr_history")
+    inst_object: Mapped["Objects"] = relationship(
+        "Objects",
+        foreign_keys=[inst_object_id],
+        back_populates="instr_history_as_inst_objects")
+    stor_object: Mapped["Objects"] = relationship(
+        "Objects",
+        foreign_keys=[stor_object_id],
+        back_populates="instr_history_as_stor_objects")
     status: Mapped["Statuses"] = relationship(back_populates="instr_history")
     storage: Mapped["Storages"] = relationship(back_populates="instr_history")
     unit: Mapped["Units"] = relationship(back_populates="instr_history")
@@ -89,7 +96,6 @@ class InstrHistory(Base):
             dept_id=self.dept_id,
             emp_id=self.emp_id,
             created_at=self.created_at,
-            updated_at=self.updated_at,
         )
 
 
@@ -120,7 +126,6 @@ class InstrHistory(Base):
             dept_id=self.dept_id,
             emp_id=self.emp_id,
             created_at=self.created_at,
-            updated_at=self.updated_at,
 
             manuf_name=self.manufacturer.name,
             manuf_full_name=self.manufacturer.full_name,
@@ -128,12 +133,12 @@ class InstrHistory(Base):
             instr_full_name=self.instr_type.full_name,
             unit=self.unit.unit,
             status=self.status.status,
-            inst_object_name=self.object.name,
-            inst_object_full_name=self.object.full_name,
+            inst_object_name=self.inst_object.name,
+            inst_object_full_name=self.inst_object.full_name,
             inst_point=self.inst_point.point,
             inst_point_descr=self.inst_point.description,
-            stor_object_name=self.object.name,
-            stor_object_full_name=self.object.full_name,
+            stor_object_name=self.stor_object.name,
+            stor_object_full_name=self.stor_object.full_name,
             storage=self.storage.storage,
             storage_descr=self.storage.description,
             company_name=self.company.name,

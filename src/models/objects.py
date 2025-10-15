@@ -2,12 +2,15 @@ from typing import TYPE_CHECKING
 from models.base import Base, int_pk, created_at, updated_at
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import String, ForeignKey
+
+from models.instr_history import InstrHistory
 from schemas.objects import ObjectResponseSchema, ObjectResponseSchemaWithCompany
 
 if TYPE_CHECKING:
     from companies import Companies
     from inst_points import InstPoints
     from instruments import Instruments
+    from instr_history import InstrHistory
     from storages import Storages
 
 
@@ -23,8 +26,15 @@ class Objects(Base):
 
     company: Mapped["Companies"] = relationship(back_populates="objects")
     inst_points: Mapped[list["InstPoints"]] = relationship(back_populates="object")
-    instruments: Mapped[list["Instruments"]] = relationship(back_populates="object")
-    storages: Mapped[list["Storages"]] = relationship(back_populates="objects")
+    instruments_as_inst_objects: Mapped[list["Instruments"]] = relationship(
+        "Instruments", foreign_keys="[Instruments.inst_object_id]", back_populates="inst_object")
+    instruments_as_stor_objects: Mapped[list["Instruments"]] = relationship(
+        "Instruments", foreign_keys="[Instruments.stor_object_id]", back_populates="stor_object")
+    instr_history_as_inst_objects: Mapped[list["InstrHistory"]] = relationship(
+        "InstrHistory", foreign_keys="[InstrHistory.inst_object_id]", back_populates="inst_object")
+    instr_history_as_stor_objects: Mapped[list["InstrHistory"]] = relationship(
+        "InstrHistory", foreign_keys="[InstrHistory.stor_object_id]", back_populates="stor_object")
+    storages: Mapped[list["Storages"]] = relationship(back_populates="object")
 
 
     def to_read_model(self) -> "ObjectResponseSchema":

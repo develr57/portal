@@ -6,6 +6,7 @@ from schemas.instr_types import InstrTypeResponseSchema
 
 if TYPE_CHECKING:
     from instruments import Instruments
+    from instr_history import InstrHistory
 
 
 class InstrTypes(Base):
@@ -17,7 +18,8 @@ class InstrTypes(Base):
     created_at: Mapped[created_at]
     updated_at: Mapped[updated_at]
 
-    instruments: Mapped[list["Instruments"]] = relationship(back_populates="inst_point")
+    instruments: Mapped[list["Instruments"]] = relationship(back_populates="instr_type")
+    instr_history: Mapped[list["InstrHistory"]] = relationship(back_populates="instr_type")
 
     def to_read_model(self) -> "InstrTypeResponseSchema":
         return InstrTypeResponseSchema(

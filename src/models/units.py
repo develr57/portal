@@ -6,6 +6,7 @@ from schemas.units import UnitResponseSchema
 
 if TYPE_CHECKING:
     from instruments import Instruments
+    from instr_history import InstrHistory
 
 
 class Units(Base):
@@ -18,6 +19,7 @@ class Units(Base):
     updated_at: Mapped[updated_at]
 
     instruments: Mapped[list["Instruments"]] = relationship(back_populates="unit")
+    instr_history: Mapped[list["InstrHistory"]] = relationship(back_populates="unit")
 
     def to_read_model(self) -> "UnitResponseSchema":
         return UnitResponseSchema(
