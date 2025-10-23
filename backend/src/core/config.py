@@ -1,9 +1,13 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic import BaseModel
+from pathlib import Path
+
+BASE_DIR = Path(__file__).parent.parent
 
 
 class ApiV1Prefix(BaseModel):
     prefix: str = "/v1"
+
 
 class ApiPrefix(BaseModel):
     prefix: str = "/api"
@@ -15,6 +19,8 @@ class Settings(BaseSettings):
     APP_DESCRIPTION: str | None
 
     # authentication
+    JWT_PRIVATE_KEY_PATH: str
+    JWT_PUBLIC_KEY_PATH: str
     SECRET_KEY: str
     JWT_ALGORITHM: str
     JWT_ACCESS_TOKEN_EXPIRES_MINUTES: int
@@ -63,7 +69,7 @@ class Settings(BaseSettings):
         else:
             return f"sqlite:///{self.DB_NAME}.db"
 
-    model_config = SettingsConfigDict(env_file=("./src/.env",))
+    model_config = SettingsConfigDict(env_file=("./src/.env", ".env",))
     api: ApiPrefix = ApiPrefix()
     naming_convention: dict[str, str] = {
         "ix": "ix_%(column_0_label)s",

@@ -9,7 +9,7 @@ from alembic import context
 
 # sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__)))))
 
-from config import settings
+from core.config import settings
 from models.base import Base
 from models.companies import Companies
 from models.departments import Departments
@@ -34,7 +34,7 @@ config = context.config
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
-config.set_main_option("sqlalchemy.url", settings.ASYNC_DATABASE_URL + "?async_fallback=True")
+config.set_main_option("sqlalchemy.url", settings.async_database_url + "?async_fallback=True")
 
 # add your model's MetaData object here
 # for 'autogenerate' support
